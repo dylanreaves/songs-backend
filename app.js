@@ -1,6 +1,7 @@
 require("dotenv").config() // Technically this can be commented out.
 const express = require("express")
 const morgan = require("morgan")
+const cors = require("cors")
 const app = express()
 const allModels = require("./models") // object from models/index.js
 const allRoutes = require("./routes") // object from routes/index.js
@@ -20,6 +21,7 @@ const PORT = process.env.PORT
 
 app.use(express.json())
 app.use(morgan('dev'))
+app.use(cors())
 
 app.use("/api/playlists", playlistRouter)
 app.use("/api/songs", songRouter)
