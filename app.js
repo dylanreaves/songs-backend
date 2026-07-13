@@ -17,7 +17,7 @@ const songRouter = allRoutes.songRouter
 // console.log(Playlists)
 // console.log(Songs)
 
-const PORT = process.env.PORT
+const PORT = process.env.PORT || process.env.LOCAL_PORT
 
 app.use(express.json())
 app.use(morgan('dev'))
