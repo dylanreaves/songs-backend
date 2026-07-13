@@ -43,8 +43,13 @@ app.use(errorHandler)
 
 async function startApp() {
     await DBConn.sync()
-    app.listen(PORT, () => {
-        console.log("Server is running on port:", PORT)
+    .then(() => {
+        app.listen(PORT, () => {
+            console.log("Server is running on port:", PORT)
+        })
+    })
+    .catch((error) => {
+        console.log(error)
     })
 }
 

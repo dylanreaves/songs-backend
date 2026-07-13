@@ -6,7 +6,7 @@ const DBConn = allModels.DBConn
 const Playlists = allModels.Playlists
 const Songs = allModels.Songs
 
-// Responds with all the songs in the database
+// Responds with all the songs in the database or all the songs on a given playlist
 router.get('/', async (request, response, next) => {
     const playlistId = Number(request.query.playlistId)
     try {
@@ -38,9 +38,14 @@ router.get('/:songid', async (request, response, next) => {
     }
 })
 
-// Creates a new song from what sent in the body
+// Adds a song to a playlist from what sent in the body
 router.post('/', async (request, response, next) => {
+    const playlistId = Number(request.query.playlistId)
     try {
+        const foundPlaylist = await Playlists.findByPk(playlistId)
+        if (!foundPlaylist) {
+            return response.status(404).send("No playlist was found.")
+        }
         const newSong = await Songs.create(request.body)
         if (!newSong) {
             return response.status(404).send("Failed to add a new song.")

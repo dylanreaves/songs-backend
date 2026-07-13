@@ -43,9 +43,14 @@ router.get("/:id", async (request, response, next) => {
     }
 })
 
+function validatePlaylist(request, response, next) {
+    const body = request.body
+    next()
+}
+
 // Create a new playlist using whats passed into the body
 // Should also have a middleware function to validate the body before creating
-router.post("/", async (request, response, next) => {
+router.post("/", validatePlaylist, async (request, response, next) => {
     try {
         const newList = await Playlists.create(request.body)
         if (!newList) {
