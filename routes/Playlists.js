@@ -10,7 +10,9 @@ const Songs = allModels.Songs
 // If no playlists were found send a message.
 router.get("/", async (request, response, next) => {
     try {
-        const allLists = await Playlists.findAll()
+        const allLists = await Playlists.findAll({
+            include: Songs
+        })
         if (!allLists) {
             return response.status(404).send("No playlists were found.")
         }
@@ -29,7 +31,9 @@ router.get("/", async (request, response, next) => {
 router.get("/:id", async (request, response, next) => {
     const id = Number(request.params.id)
     try {
-        const foundList = await Playlists.findByPk(id)
+        const foundList = await Playlists.findByPk(id, {
+            include: Songs
+        })
         if (!foundList) {
             return response.status(404).send("No playlist was found.")
         }
