@@ -3,6 +3,6 @@
 require('dotenv').config()
 const { Sequelize } = require("sequelize")
 const URL = process.env.LIVE_DB_URL || process.env.DB_URL
-const DBConn = new Sequelize(URL, {logging: false})
+const DBConn = new Sequelize(URL, {logging: false, ssl: true})
 
 module.exports = DBConn
